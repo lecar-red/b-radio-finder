@@ -1,0 +1,24 @@
+#!/bin/bash
+
+JSDIR="public/backbone/js"
+
+if [ ! -z "$1" ]; then
+	JSDIR=$1
+fi
+
+if [ ! -d "$JSDIR" ]; then
+	mkdir -p "$JSDIR"
+fi
+
+if [ ! -d "$JSDIR" ]; then
+	echo "ERROR: missing required direction - $JSDIR";
+	exit 1;
+fi
+
+curl -o "$JSDIR/backbone.js" http://documentcloud.github.io/backbone/backbone.js
+curl -o "$JSDIR/backbone-min.js" http://documentcloud.github.io/backbone/backbone-min.js
+
+curl -o "$JSDIR/underscore.js" http://underscorejs.org/underscore.js
+curl -o "$JSDIR/underscore-min.js" http://underscorejs.org/underscore-min.js
+
+curl -o "$JSDIR/json2.js" https://raw.github.com/douglascrockford/JSON-js/master/json2.js

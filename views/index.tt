@@ -1,0 +1,45 @@
+<!-- HEADER line -->
+<div class="container">
+  <div class="page-header">
+    <div class="row">
+      <div class="span12">
+        <h1>Search <small>Find three closest stations</small></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <form method="get" action="/" class="form-inline" >
+        <input name="loc" class="span11" type="text" placeholder="Location: City, State and/or Zip">
+        <button type="submit" class="btn btn-primary"> <i class="icon-search icon-white"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <p class="text-center">Searching for <em>Somewhere over the Rainbow</em> (Long -123, Lat 23 )</p>
+    </div>
+
+    <div class="span12">
+      <div class="well">
+        <div class="row">
+          <div class="span4"> <p class="lead">620 AM (WTMJ)</p></div>
+          <div class="span4"> <span class="badge badge-success">10 Miles</span> <span class="badge badge-info">AM</span></div>
+        </div>
+        <p>Milwaukee, WI</p>
+      </div>
+    </div><!-- .span12 -->
+
+    <div class="span12">
+      <div class="well">
+        <p class="lead">99.1 FM (WXYZ) </p>
+        <p>Someplace Else, WI</p>
+        <span class="badge badge-success">15 Miles</span> <span class="badge badge-info">FM</span>
+      </div>
+    </div><!-- .span12 -->
+
+  </div><!-- .row -->
+
+</div><!-- .container -->
