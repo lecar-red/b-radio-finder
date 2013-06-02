@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Geo::Coder::Google;
+use Data::Dumper qw( Dumper );
+
+my $input = shift || die "Missing required filename\n";
+
+open my $fh, '<', $input
+    or die "Unable to open $input: $!\n";
+
+my $geocoder = Geo::Coder::Google->new(apiver => 3);
+
+while (<$fh>) {
+    chomp;
+
+    my ($station, $city, $state, $freq) = split /\t/;
+    my ($call_sign, $band) = split /\s/, $station;
+
+    my $location = $geocoder->geocode(location => "$city, $state");
+
+    if ( !ref $location || !defined $location->{geometry} || !defined $location->{geometry}->{location} ) {
+        warn "Unable to find location for $city, $state";
+        print STDERR "location: " . Dumper($location) . "\n";
+        next;
+    }
+
+    my $loc = $location->{geometry}->{location};
+    my $lng = $loc->{lng};
+    my $lat = $loc->{lat};
+
+    print <<END_INSERT;
+insert into station
+ (call_sign, band, frequency, city, state, lat, lng, added_at)
+values
+ ('$call_sign', '$band', '$freq', '$city', '$state', $lat, $lng, NOW());
+END_INSERT
+
+}
+
+close $fh;

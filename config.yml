@@ -29,3 +29,14 @@ engines:
 plugins:
     Ajax:
         content_type: 'application/json'
+    Database:
+        driver: 'mysql'
+        database: 'brew_finder'
+        host: 'localhost'
+        port: 3306
+        username: 'brew_finder'
+        password: 'bf'
+        connection_check_threshold: 10
+        dbi_params:
+            RaiseError: 1
+            AutoCommit: 1

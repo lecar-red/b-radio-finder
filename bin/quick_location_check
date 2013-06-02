@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Dancer qw(:script);
+use Dancer::Plugin::Database;
+
+use Geo::Coder::Google;
+use GIS::Distance;
+use Geo::Distance::Google;
+
+my $geocoder = Geo::Coder::Google->new( apiver => 3 );
+my $gis = GIS::Distance->new;
+
+my $name = shift || die "Missing city, state or zip";
+
+my $current = $geocoder->geocode( $name );
+
+die "Unable to geocode: $name"
+    unless $current && defined $current->{geometry} && defined $current->{geometry}->{location};
+
+my %results;
+my $cur_lat = $current->{geometry}->{location}->{lat};
+my $cur_lng = $current->{geometry}->{location}->{lng};
+
+print "Distance from $name ($cur_lat, $cur_lng) to: \n";
+
+foreach my $station ( database->quick_select( 'station', {} )) {
+    my $distance = $gis->distance( $station->{lat}, $station->{lng} => $cur_lat, $cur_lng );
+    
+    $results{ $station->{station_id} } = { 
+        distance => int( $distance->miles ),
+        station  => $station
+    };
+}
+
+foreach my $id ( sort { $results{$a}->{distance} <=> $results{$b}->{distance} } keys %results ) {
+    my $result = $results{$id};
+    print $result->{station}->{city}, " ", $result->{station}->{frequency}, " - ", $result->{distance}, " mile(s)\n";
+}
+
+exit;

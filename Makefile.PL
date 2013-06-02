@@ -16,6 +16,11 @@ WriteMakefile(
         'YAML'       => 0,
         'Dancer'     => 1.3095,
         'Template'   => 0,
+
+        'Dancer::Plugin::Database' => 0,
+
+        'Geo::Coder::Google'    => 0,
+        'Geo::Distance::Google' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'BrewFinder-*' },
