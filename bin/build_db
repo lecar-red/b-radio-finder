@@ -1,0 +1,23 @@
+#!/bin/bash
+
+function die {
+	echo "Error: $1";
+	exit 1;
+}	
+
+DB_NAME='brew_finder'
+
+mysqladmin -u $1 create ${DB_NAME} || die "Unable to create database!"
+
+# add user
+mysql -u $1 ${DB_NAME} < sql/schema.sql || die "Uanble to drop schema in"
+
+# add auth
+mysql -u $1 ${DB_NAME} < sql/do_auth.sql || die "Uanble to create user"
+
+# load stations
+mysql -u $1 ${DB_NAME} < data/stations.sql  || die "Failed to load stations";
+
+echo "Done!";
+
+exit;
