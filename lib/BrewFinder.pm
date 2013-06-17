@@ -21,13 +21,14 @@ get '/' => sub {
 };
 
 # return post results
-ajax '/search' => sub {
+ajax '/stations' => sub {
     my $current  = params->{loc};
 
     if ( !$current ) {
-        return { error => 'missing required parameter' };
+        return to_json { error => 'missing required parameter' };
     }
 
+    # should figure out way to cache this a bit 
     my $geocoder = Geo::Coder::Google->new( apiver => 3 );
     my $geodata  = $geocoder->geocode( $current );
 
@@ -49,8 +50,9 @@ sub fetch_results {
         my $distance = $gis->distance( $station->{lat}, $station->{lng} => $lat, $lng );
         
         $results{ $station->{station_id} } = { 
+            # used for sorting
             distance => int( $distance->miles ),
-            station  => $station
+            %$station,
         };
     }
 

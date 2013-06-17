@@ -1,3 +1,4 @@
-CREATE USER 'brew_finder'@'localhost' IDENTIFIED BY 'brew_finder';
+-- TODO: make readonly user
+CREATE USER 'brew_finder'@'localhost' IDENTIFIED BY 'bf';
 GRANT ALL PRIVILEGES ON *.* TO 'brew_finder'@'localhost' 
 	WITH GRANT OPTION;

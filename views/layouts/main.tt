@@ -23,7 +23,7 @@ this reset full width setting, need to adjust back to 940 from boostrap base
 <div class="container head">
   <div class="row-fluid">
     <div class="span12">
-      <h1 class="muted">Brew Finder</h1>
+      <h1 class="muted">Brewers Radio Finder</h1> 
     </div><!-- .span12 -->
   </div>
 
@@ -42,11 +42,14 @@ this reset full width setting, need to adjust back to 940 from boostrap base
 
 [% content %]
 
-<script src="[% request.uri_base %]/javascripts/jquery-1.7.2.min.js"></script>
+<script src="[% request.uri_base %]/js/jquery-1.7.2.min.js"></script>
 <script src="[% request.uri_base %]/bootstrap/js/bootstrap.min.js"></script>
-<script>
-  $(document).ready(function() {});
-</script>
+<script src="[% request.uri_base %]/backbone/js/underscore.js"></script>
+<script src="[% request.uri_base %]/backbone/js/backbone.js"></script>
+<script src="[% request.uri_base %]/backbone/js/json2.js"></script>
+<script src="[% request.uri_base %]/js/models.js"></script>
+<script src="[% request.uri_base %]/js/views.js"></script>
+<script src="[% request.uri_base %]/js/app.js"></script>
 
 </body>
 </html>
