@@ -6,7 +6,10 @@ var Station = Backbone.Model.extend({
 
 var Stations = Backbone.Collection.extend({
     url: '/stations',
-    model: Station
+    model: Station,
+    parse: function(resp, options) {
+        return resp.locations;
+    }
 });
 
 var SearchLocation = Backbone.Model.extend({
@@ -17,4 +20,5 @@ var SearchLocation = Backbone.Model.extend({
 });
 
 var CurrentLocation = Backbone.Model.extend({
+    // TODO; add validate
 });

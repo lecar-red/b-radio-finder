@@ -52,6 +52,7 @@ $(function() {
         
         // fetch stations
         app.stations.fetch({
+            reset: true,
             data: {'loc': $input.val()},
             //done: function(data, status, resp) { 
             success: function(data, status, obj) { 
@@ -62,6 +63,8 @@ $(function() {
                 }
 
                 $input.val('');
+
+                // pass data.source to searchloc
             },
             //fail: function(resp, status, error) {
             error: function(resp, status, error) {

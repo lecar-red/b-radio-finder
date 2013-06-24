@@ -32,12 +32,17 @@ ajax '/stations' => sub {
     my $geocoder = Geo::Coder::Google->new( apiver => 3 );
     my $geodata  = $geocoder->geocode( $current );
 
+    debug $geodata;
+
     # need to make more friendly
     die "Unable to geocode: $current"
         unless $geodata && defined $geodata->{geometry} && defined $geodata->{geometry}->{location};
 
     # return results as array in sorted order
-    to_json fetch_results( $geodata->{geometry}->{location}->{lat}, $geodata->{geometry}->{location}->{lng} );
+    to_json({
+    	locations => fetch_results( $geodata->{geometry}->{location}->{lat}, $geodata->{geometry}->{location}->{lng} ), 
+    	source    => $geodata->{formatted_address}
+    });
 };
 
 sub fetch_results {

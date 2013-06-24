@@ -1,5 +1,5 @@
 var StationView = Backbone.View.extend({
-    className: 'span12',
+    className: 'station span12',
 
     template: _.template($('#station-tmpl').html()),
 
@@ -35,6 +35,7 @@ var StationsView = Backbone.View.extend({
     },
 
     addAll: function() {
+        this.$el.empty();
         this.collection.forEach(this.addOne, this);
     }
 });

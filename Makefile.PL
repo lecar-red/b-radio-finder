@@ -4,9 +4,9 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME                => 'BrewFinder',
-    AUTHOR              => q{YOUR NAME <youremail@example.com>},
+    AUTHOR              => q{Lee <leecarmichael123@gmail.com>},
     VERSION_FROM        => 'lib/BrewFinder.pm',
-    ABSTRACT            => 'YOUR APPLICATION ABSTRACT',
+    ABSTRACT            => 'Retrieve Brewers Radio stations based on location',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
       ? ('LICENSE'=> 'perl')
       : ()),
@@ -20,7 +20,8 @@ WriteMakefile(
         'Dancer::Plugin::Database' => 0,
 
         'Geo::Coder::Google'    => 0,
-        'Geo::Distance::Google' => 0,
+	'GIS::Distance'         => 0,
+        #'Geo::Distance::Google' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'BrewFinder-*' },
