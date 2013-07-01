@@ -15,6 +15,9 @@ var StationView = Backbone.View.extend({
 
 // this is more or less boilerplate code for a collection
 var StationsView = Backbone.View.extend({
+    // easier tracking
+    // id: 'stations',
+
     className: 'row',
 
     initialize: function() {
@@ -78,5 +81,22 @@ var AboutView = Backbone.View.extend({
 
     hide: function() {
         this.$el.modal('hide');
+    }
+});
+
+var PlaceholderView = Backbone.View.extend({
+    el: '#ph',
+
+    render: function() {
+        this.el = $(this.id);
+        return this;
+    },
+
+    show: function() {
+        this.$el.show();
+    },
+
+    hide: function() {
+        this.$el.hide();
     }
 });

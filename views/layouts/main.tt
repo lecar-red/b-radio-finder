@@ -31,8 +31,8 @@ this reset full width setting, need to adjust back to 940 from boostrap base
     <div class="navbar-inner">
       <div class="container">
         <ul class="nav">
-          <li><a href="#">Search</a></li>
-          <li><a href="#about">About</a></li>           
+          <li><a href="/">Search</a></li>
+          <li><a href="/#about">About</a></li>           
           <li><a href="http://blog.leecarmichael.com">Blog</a></li>           
         </ul>                      
       </div>
@@ -41,6 +41,13 @@ this reset full width setting, need to adjust back to 940 from boostrap base
 </div><!-- .container .head -->
 
 [% content %]
+
+<div class="container">
+  <hr>
+  <footer>
+    <p class="muted credit">Brewers Radio Finder by <a href="http://leecarmichael.com">Lee Carmichael</a> | <a href="#about">About</a> | <a href="http://milwaukee.brewers.mlb.com/mil/schedule/radio_network.jsp" target="_new">Brewers Radio Network</a> | <a href="http://milwaukee.brewers.mlb.com/" target="_new">Brewers</a></p>
+  </footer>
+</div>
 
 <script src="[% request.uri_base %]/js/jquery-1.7.2.min.js"></script>
 <script src="[% request.uri_base %]/bootstrap/js/bootstrap.min.js"></script>
