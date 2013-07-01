@@ -54,3 +54,29 @@ var SearchingView = Backbone.View.extend({
         this.$el.html(this.template(attrs));
     }
 });
+
+var AboutView = Backbone.View.extend({
+    el: '#about',
+
+    /*
+     * this feels like the correct thing to do but doesn't
+     * fit with route.navigate thing 
+    events: {
+        'click .close': 
+    },
+    */
+
+    render: function() {
+        this.el = $(this.id);
+        return this;
+    },
+
+    // seems like there must be some
+    show: function() {
+        this.$el.modal('show');
+    },
+
+    hide: function() {
+        this.$el.modal('hide');
+    }
+});

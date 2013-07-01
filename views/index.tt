@@ -36,14 +36,6 @@
         <p>Milwaukee, WI</p>
       </div>
     </div><!-- .span12 -->
-
-    <div class="span12">
-      <div class="well">
-        <p class="lead">99.1 FM (WXYZ) </p>
-        <p>Someplace Else, WI</p>
-        <span class="badge badge-success">15 Miles</span> <span class="badge badge-info">FM</span>
-      </div>
-    </div><!-- .span12 -->
 %]
 
   </div><!-- .row -->
@@ -61,3 +53,20 @@
         <span class="badge badge-success"><%= distance %> Mile<% if (distance > 1) { print("s"); } %></span> <span class="badge badge-info"><%= band %></span>
     </div>
 </script>
+
+<div id="about" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>About</h3>
+  </div>
+  <div class="modal-body">
+    <p>Brewers' Radio Finder was inspired by many trip across the state of Wisconsin while scanning the dial or using statewide map to figure out what station was currently in range.</p>
+    <p>The app works pretty simply. It takes your current location (or some location you entered) and return the three closest stations. Soon it will have an map view (hopefully).</p>
+    <p>
+    Built with <a href="http://backbonejs.org">Backbone</a>, <a href="http://twitter.github.io/">Bootstrap</a> and <a href="http://perldancer.org">Dancer</a> by <a href="http://www.leecarmichael.com" target="_new">Lee Carmichael</a>, who also by chance is a <a href="http://milwaukee.brewers.mlb.com/index.jsp?c_id=mil" target="_new">Brewers</a> fan.
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="/#" class="btn">Close</a>
+  </div>
+</div>

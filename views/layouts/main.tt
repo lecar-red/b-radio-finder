@@ -32,8 +32,8 @@ this reset full width setting, need to adjust back to 940 from boostrap base
       <div class="container">
         <ul class="nav">
           <li><a href="#">Search</a></li>
-          <li><a href="#">About</a></li>           
-          <li><a href="#">Blog</a></li>           
+          <li><a href="#about">About</a></li>           
+          <li><a href="http://blog.leecarmichael.com">Blog</a></li>           
         </ul>                      
       </div>
     </div>

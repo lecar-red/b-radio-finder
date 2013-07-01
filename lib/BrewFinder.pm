@@ -40,8 +40,11 @@ ajax '/stations' => sub {
 
     # return results as array in sorted order
     to_json({
-    	locations => fetch_results( $geodata->{geometry}->{location}->{lat}, $geodata->{geometry}->{location}->{lng} ), 
-    	source    => $geodata->{formatted_address}
+    	locations => fetch_results( 
+            $geodata->{geometry}->{location}->{lat}, 
+            $geodata->{geometry}->{location}->{lng} 
+        ), 
+    	source    => build_source( $geodata )
     });
 };
 
@@ -71,6 +74,41 @@ sub fetch_results {
     }
 
     return $top; 
+}
+
+sub build_source {
+    my $geodata = shift || return {};
+    my ($city, $state, $zip) = (0, 2, 4);
+
+    debug "address_components: ", $geodata->{address_components};
+    debug "location: ", $geodata->{geometry}->{location};
+
+    # ugh, sometimes there isn't a place of interest for the map
+    if ( $geodata->{address_components}->[0] &&
+         $geodata->{address_components}->[0]->{types} &&
+         grep { /^point_of_interest$/ } @{ $geodata->{address_components}->[0]->{types} } ) {
+
+        # adjust locations
+        ($city, $state, $zip) = (1, 3, 5);
+    }
+
+    return {
+        loc => sprintf( "%s, %s %s", 
+            get_short_name($geodata->{address_components}->[$city]),
+            get_short_name($geodata->{address_components}->[$state]),
+            get_short_name($geodata->{address_components}->[$zip])
+        ),
+        # return lat & lng
+        %{ $geodata->{geometry}->{location} }
+    };
+}
+
+# retrieves short_name from passed in hashref
+# - return N/A if hashref isn't defined or 'short_name' key doesn't exist
+sub get_short_name {
+    my $ele = shift;
+
+    return $ele && $ele->{short_name} ? $ele->{short_name} : 'N/A';
 }
 
 true;

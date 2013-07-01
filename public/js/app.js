@@ -6,6 +6,21 @@ function populate_location(pos) {
     $('[name=loc]').val(pos.coords.latitude + ", " + pos.coords.longitude);
 }
 
+var AppRouter = Backbone.Router.extend({
+    routes: {
+        '': 'index',
+        'about': 'about'
+    },
+
+    index: function() {
+        app.about.hide();
+    },
+
+    about: function() {
+        app.about.show();
+    }
+});
+
 $(function() {
     app.stations     = new Stations;
     app.stationsView = new StationsView({collection: app.stations});
@@ -13,12 +28,19 @@ $(function() {
     app.searchloc     = new SearchLocation;
     app.searchingView = new SearchingView({model: app.searchloc});
 
-    // basic setup
+    app.about = new AboutView;
+
+    // basic setup, could be called later
     app.stationsView.render();
 
     // add to page
     $('.row.output').prepend(app.searchingView.el);
     $('.row .span12').after(app.stationsView.el); 
+
+    app.router = new AppRouter;
+
+    // setup history thingy
+    Backbone.history.start();
 
     // setup view hander on input
     // i suspect this could be backbone viewized
@@ -55,8 +77,9 @@ $(function() {
             reset: true,
             data: {'loc': $input.val()},
             //done: function(data, status, resp) { 
-            success: function(data, status, obj) { 
-                var resp = obj.xhr;
+            // backbone, adjusts args to callbacks
+            success: function(collection, respData, options) { 
+                var resp = options.xhr;
 
                 if (app.debug) {
                     $('#debug pre').text(resp.responseText).parent().fadeIn();
@@ -65,6 +88,9 @@ $(function() {
                 $input.val('');
 
                 // pass data.source to searchloc
+                if ( respData.source ) {
+                    app.searchloc.set(respData.source);
+                } 
             },
             //fail: function(resp, status, error) {
             error: function(resp, status, error) {
