@@ -12,8 +12,8 @@ var BrewApp = Backbone.Router.extend({
 
     routes: {
         '': 'index',
-        'about': 'about',
-        'current': 'current'
+        'about' : 'about',
+        'search': 'search'
     },
 
     initialize: function(options) {
@@ -28,13 +28,16 @@ var BrewApp = Backbone.Router.extend({
         this.searchloc     = new SearchLocation;
         this.searchingView = new SearchingView({model: this.searchloc});
 
-        this.currentLoc    = new CurrentLocation;
+        this.currentLoc     = new CurrentLocation;
+        this.currentLocView = new CurrentLocationView({model: this.currentLoc});
 
         this.phView = new PlaceholderView;
         this.about  = new AboutView;
 
         // basic setup, could be called later
         this.stationsView.render();
+
+        this.currentLocView.render();
 
         // add to page
         $('.row.output').prepend(this.searchingView.el);
@@ -55,25 +58,12 @@ var BrewApp = Backbone.Router.extend({
         this.about.show();
     },
 
-    current: function() {
-        console.log("Fetch current location");
-
-    }
 });
 
 $(function() {
     app = new BrewApp;
     app.start();
-
-    // setup view hander on input
-    // i suspect this could be backbone viewized
-    $('body').on('click', '#here', function(e) {
-        e.preventDefault();
-
-        // add error handler
-        navigator.geolocation.getCurrentPosition(populate_location);
-    });
-    
+   
     // Usability stuff:
     //  - flip button while searching
     //  - 
@@ -81,7 +71,8 @@ $(function() {
     // for now just setup basic submit handler
     // TODO: convert into route
     $('body').on('submit', 'form', function(e) {
-        var $input = $(e.target).find('[name=loc]');
+        var $input  = $(e.target).find('[name=loc]');
+        var $submit = $(e.target).find('[type=submit]');
 
         e.preventDefault();
 
@@ -93,6 +84,7 @@ $(function() {
         }
 
         $input.attr('readonly', true);
+        $submit.button('loading');
 
         app.searchloc.set({loc: $input.val()});
         
@@ -126,6 +118,7 @@ $(function() {
             //always: function(resp, status, err) {
             complete: function(resp, status, err) {
                 $input.attr('readonly', false);
+                $submit.button('reset');
             }
         });
     });

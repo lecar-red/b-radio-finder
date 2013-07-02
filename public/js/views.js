@@ -61,20 +61,6 @@ var SearchingView = Backbone.View.extend({
 var AboutView = Backbone.View.extend({
     el: '#about',
 
-    /*
-     * this feels like the correct thing to do but doesn't
-     * fit with route.navigate thing 
-    events: {
-        'click .close': 
-    },
-    */
-
-    render: function() {
-        this.el = $(this.id);
-        return this;
-    },
-
-    // seems like there must be some
     show: function() {
         this.$el.modal('show');
     },
@@ -87,11 +73,6 @@ var AboutView = Backbone.View.extend({
 var PlaceholderView = Backbone.View.extend({
     el: '#ph',
 
-    render: function() {
-        this.el = $(this.id);
-        return this;
-    },
-
     show: function() {
         this.$el.show();
     },
@@ -99,4 +80,68 @@ var PlaceholderView = Backbone.View.extend({
     hide: function() {
         this.$el.hide();
     }
+});
+
+var CurrentLocationView = Backbone.View.extend({
+    el: '#here',
+    tagName: 'button',
+
+    events: {
+        'click': 'request_location'
+    },
+
+    initialize: function() {
+        this.location_input = $('[name=loc]');
+        this.model.on('change', this.update_input, this);
+    },
+
+    update_input: function() {
+        if ( this.model.get('lat') && this.model.get('lng') ) {
+            this.location_input.val( this.model.get('lat') + ", " + this.model.get('lng') );
+        }
+        else {
+            this.location_input.val("");
+        }
+    },
+
+    request_location: function() {
+        var locModel = this.model;
+        var $button  = this.$el;
+
+        if ( navigator.geolocation ) {
+            $button.button('toggle');
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    $button.button('toggle');
+                    locModel.set({
+                        'lat': position.coords.latitude,
+                        'lng': position.coords.longitude
+                    });
+                },
+                // error handler
+                function(error) {
+                    var errors = {
+                        0: 'Unknown Error',
+                        1: 'Permission Denied',
+                        2: 'Position Unavailable',
+                        3: 'Timed out'
+                    };
+
+                    $button.button('toggle');
+
+                    // this feels kind of wrong but maybe not...
+                    locModel.clear();
+                    locModel.set({
+                        error_msg:  errors[error],
+                        error_code: error
+                    });
+                }
+            )
+        }
+        else {
+            // throw unsupported error
+        }
+    }
+
 });
