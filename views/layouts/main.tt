@@ -46,6 +46,9 @@ this reset full width setting, need to adjust back to 940 from boostrap base
   <hr>
   <footer>
     <p class="muted credit">Brewers Radio Finder by <a href="http://leecarmichael.com">Lee Carmichael</a> | <a href="#about">About</a> | <a href="http://milwaukee.brewers.mlb.com/mil/schedule/radio_network.jsp" target="_new">Brewers Radio Network</a> | <a href="http://milwaukee.brewers.mlb.com/" target="_new">Brewers</a></p>
+    <!--
+    <p>Created with <a href="http://perldancer.org">Dancer</a>, <a href="http://bootstrap.github.io">Bootstrap</a>, <a href="http://backbonejs.org">Backbone</a> and <a href="http://jquery.org">jQuery</a></p>
+-->
   </footer>
 </div>
 
