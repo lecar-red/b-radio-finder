@@ -4,7 +4,7 @@
 log: "warning"
 
 # log message to a file in logs/
-logger: "console"
+logger: "file"
 
 # don't consider warnings critical
 warnings: 0
@@ -15,3 +15,15 @@ show_errors: 0
 # cache route resolution for maximum performance
 route_cache: 1
 
+plugins:
+    Database:
+        driver: 'mysql'
+        database: 'leecarmi_radio'
+        host: '172.16.0.51'
+        #port: 3306
+        username: 'leecarmi_radioro'
+        password: '~O=9)06ItKr3'
+        connection_check_threshold: 10
+        dbi_params:
+            RaiseError: 1
+            AutoCommit: 1
