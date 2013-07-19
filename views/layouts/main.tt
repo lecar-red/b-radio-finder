@@ -13,8 +13,8 @@
   <!-- looks better on ipad but not on main site now :-/ -->
 <!--
 this reset full width setting, need to adjust back to 940 from boostrap base
-  <link rel="stylesheet" href="[% request.uri_base %]/bootstrap/css/bootstrap-responsive.css" >
 -->
+  <link rel="stylesheet" href="[% request.uri_base %]/bootstrap/css/bootstrap-responsive.css" >
   <link rel="stylesheet" href="[% request.uri_base %]/css/style.css" >
 </head>
 
