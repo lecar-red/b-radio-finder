@@ -9,7 +9,7 @@ logger: "file"
 # don't consider warnings critical
 warnings: 0
 
-# hide errors 
+# hide errors
 show_errors: 0
 
 # cache route resolution for maximum performance
@@ -19,10 +19,10 @@ plugins:
     Database:
         driver: 'mysql'
         database: 'leecarmi_radio'
-        host: '172.16.0.51'
+        host: 'your_db_ip'
         #port: 3306
         username: 'leecarmi_radioro'
-        password: '~O=9)06ItKr3'
+        password: 'change_me'
         connection_check_threshold: 10
         dbi_params:
             RaiseError: 1
